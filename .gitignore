@@ -1,0 +1,23 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Shell
+*.log
+*.bak
+*.tmp
+
+# Markdown preview artifacts
+.marked-cache/
+
+# Local testing
+/test-output/
+/scratch/
