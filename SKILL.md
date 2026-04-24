@@ -21,6 +21,26 @@ Run this skill when **any** of the following is true:
 
 **Before generating anything, check if anchor files already exist** in the project root (any of STARTWORK.md, CONTEXT.md, FILEMAP.md, TECHSTACK.md, WORKFLOW.md, PROGRESS.md, DECISIONS.md, ENDWORK.md). If at least one exists, stop and ask the user: overwrite everything, fill only what's missing, or cancel. Never silently clobber a user's hand-edited anchors — that's their project memory.
 
+## Modes of operation
+
+The skill detects which mode to run from project state — the user doesn't declare it.
+
+### Init mode
+
+Fires when **no anchor files exist** in the project root. Full flow: scan the project, ask the four gap questions, write all 8 anchors, offer hooks. This is the common case on a fresh repo.
+
+### Update mode
+
+Fires when **at least one anchor file already exists**. List which anchors are present and which are missing, then offer three choices:
+
+- **Refresh from scan** — re-run the scan and merge new information (new files, new dependencies, new commits) into existing anchors. Preserve any user-edited prose: if a section is clearly hand-written rather than a filled template, leave it untouched and add `<!-- scan suggests: ... -->` above it. Show a per-file diff before writing.
+- **Fill missing only** — generate only the anchors that don't exist yet. Don't touch anything the user already has.
+- **Cancel** — exit cleanly, change nothing.
+
+### Hooks-only mode
+
+Fires when **all 8 anchors already exist** and the user asks to install hooks ("install hooks", "add hooks", or equivalent). Skip the scan and the gap questions entirely; go straight to Step 4 of the workflow.
+
 ## Workflow
 
 ### Step 1 — Scan the project
@@ -84,6 +104,26 @@ Do not launch into editing or further work in the same turn. The handoff is the 
 
 STARTWORK is the entry; ENDWORK is the exit. The middle six are read on demand.
 
+## What the anchors are NOT
+
+A common failure mode: non-technical users treat anchors as a place to dump every architectural thought, then wonder why Claude reads slowly and still misses details. Keep this straight:
+
+- **Not a design doc, not a spec, not a README.** Those belong in `docs/` or a dedicated file.
+- **STARTWORK stays under ~50 lines.** The other middle anchors stay under ~150 lines each. Past that they stop being signposts and start being noise.
+- **If an anchor grows past its limit, move the overflow into real documentation** — a `docs/` folder, a design doc, a spec. Anchors point to things; they don't store them.
+- **The goal is less context loaded per session, not "everything Claude might ever need".** Anchors that grow unchecked defeat their own purpose.
+- **Anchors are source files.** They ship in git, get reviewed in PRs, and rot if neglected. Treat them like code: concise, current, reviewed.
+
+## Merge strategy
+
+Rules for touching existing content during update mode and hooks installation:
+
+- **Never silently overwrite user content.** If a file exists and its shape doesn't match the original template, treat it as user-edited and ask before writing.
+- **Per-file diff and confirm.** In update mode, show a diff for each changed file and ask "apply / skip / edit manually". No bulk overwrite, even if the user picked "refresh from scan".
+- **`.claude/settings.json` merges, never clobbers.** Parse the existing JSON, merge new hooks into the `hooks` array (dedupe by command), preserve every other key. If merge fails (malformed JSON, schema conflict), stop and hand the user both files with a clear note.
+- **DECISIONS.md is append-only.** Never rewrite existing entries. Only add new ones, and never on a plain re-run without explicit user request.
+- **When in doubt, show the user and ask.** A one-second confirmation beats a destroyed anchor the user discovers three sessions later.
+
 ## Gotchas
 
 - **Never regenerate existing anchors without asking.** If any anchor file already exists in the project root, stop and offer overwrite / fill-missing / cancel. A hand-edited DECISIONS.md is often the most valuable file in the repo.
@@ -95,3 +135,15 @@ STARTWORK is the entry; ENDWORK is the exit. The middle six are read on demand.
 - **Don't invent content to fill templates.** If TECHSTACK scan is empty and the user hasn't answered, write `TBD` rather than guessing. A `TBD` prompts the user to fill it in; a hallucinated framework choice quietly misleads future sessions.
 
 For worked examples of filled anchor files on real projects, see `references/examples.md` (added in a later phase).
+
+## Principles
+
+When an edge case appears that the rules above don't cover, fall back on these four:
+
+1. **Anchors are user property.** Never silently modify content the user wrote. If the skill re-runs and finds a non-empty anchor, assume the user edited it and protect it accordingly.
+
+2. **When scan and user input conflict, user wins.** The scan is a starting point, not ground truth. If the user says "we're a Go shop" and the scan found one stray `package.json`, believe the user.
+
+3. **Prefer TBD over invented content.** If a template field can't be filled from scan or answers, write `TBD` and move on. A `TBD` invites the user to fill it in; a hallucinated framework choice quietly misleads every future session.
+
+4. **The goal is less context per session, not more files.** Every anchor earns its place by saving Claude from re-loading something bigger. If an anchor stops doing that — it's become a dumping ground, or it's never read — it's broken and should shrink or merge with another.
