@@ -1,0 +1,36 @@
+# Tech Stack
+
+## Core
+
+- **Language**: {{LANGUAGE}} {{LANGUAGE_VERSION}}
+- **Framework**: {{FRAMEWORK}}
+- **Runtime**: {{RUNTIME}}
+- **Package manager**: {{PACKAGE_MANAGER}}
+
+## Key dependencies
+
+Things worth knowing when proposing changes.
+
+- `{{DEP_1}}` — {{DEP_1_PURPOSE}}
+- `{{DEP_2}}` — {{DEP_2_PURPOSE}}
+- TBD
+
+## Deployment
+
+- **Target**: {{DEPLOY_TARGET}}
+- **CI/CD**: {{CI_CD}}
+- **Secrets location**: {{SECRETS_LOCATION}}
+
+## Versions that matter
+
+If upgrading these breaks things, note why here.
+
+- {{PINNED_VERSION_1}} — {{PINNED_VERSION_1_REASON}}
+- TBD
+
+## Not using
+
+Things Claude might assume but shouldn't — prevents wrong-library suggestions.
+
+- {{NOT_USING_1}}
+- TBD

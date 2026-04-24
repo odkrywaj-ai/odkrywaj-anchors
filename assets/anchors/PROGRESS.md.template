@@ -1,0 +1,38 @@
+# Progress
+
+_Last updated: {{DATE}}_
+
+State of the project. Updated at session end via the `./ENDWORK.md` checklist. Don't rewrite history — scroll to the session log for older status.
+
+## Done
+
+- {{DONE_1}}
+- {{DONE_2}}
+
+## In progress
+
+- {{IN_PROGRESS_1}}
+
+## Next
+
+In priority order.
+
+1. {{NEXT_1}}
+2. {{NEXT_2}}
+3. {{NEXT_3}}
+
+## Blocked
+
+Things waiting on external input before moving.
+
+- {{BLOCKED_1}}
+
+---
+
+## Session log
+
+Dated notes from recent sessions, newest on top.
+
+### {{DATE}} — Initial scaffold
+
+Anchors generated via odkrywaj-anchors. Baseline captured.

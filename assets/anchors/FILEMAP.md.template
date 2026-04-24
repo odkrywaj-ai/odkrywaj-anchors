@@ -1,0 +1,36 @@
+# File Map
+
+One-line purpose per top-level folder and key file. Update when structure changes — otherwise Claude wastes tokens re-discovering layout every session.
+
+## Top-level layout
+
+```
+{{TREE_OUTPUT}}
+```
+
+## What lives where
+
+- `{{FOLDER_1}}/` — {{FOLDER_1_PURPOSE}}
+- `{{FOLDER_2}}/` — {{FOLDER_2_PURPOSE}}
+- `{{FOLDER_3}}/` — {{FOLDER_3_PURPOSE}}
+- TBD
+
+## Entry points
+
+- Main file: `{{MAIN_FILE}}`
+- Config: `{{CONFIG_FILE}}`
+- Tests live in: `{{TESTS_LOCATION}}`
+
+## Conventions
+
+Rules about where new code goes.
+
+- {{CONVENTION_1}}
+- TBD
+
+## Ignore for most tasks
+
+Folders Claude can skip unless specifically needed (generated output, vendored deps, caches).
+
+- `{{IGNORE_FOLDER_1}}/`
+- TBD

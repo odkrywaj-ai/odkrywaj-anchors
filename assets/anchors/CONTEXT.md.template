@@ -1,0 +1,38 @@
+# Context
+
+## What this is
+
+{{ONE_SENTENCE_DESCRIPTION}}
+
+## Who it's for
+
+{{TARGET_AUDIENCE}}
+
+## What we're building
+
+- {{GOAL_1}}
+- {{GOAL_2}}
+- {{GOAL_3}}
+
+## What we're NOT building
+
+This list stops Claude from re-proposing rejected directions. Keep it updated.
+
+- {{NOT_DOING_1}}
+- {{NOT_DOING_2}}
+- TBD
+
+## Current focus
+
+{{CURRENT_SPRINT_GOAL}}
+
+## Constraints
+
+Things that bound what's possible: budget, deadline, team size, tech lock-ins, compliance.
+
+- {{CONSTRAINT_1}}
+- TBD
+
+## Success looks like
+
+{{SUCCESS_DEFINITION}}

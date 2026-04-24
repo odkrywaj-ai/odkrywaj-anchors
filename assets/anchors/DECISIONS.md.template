@@ -1,0 +1,32 @@
+# Decisions
+
+**Append-only log.** Every non-trivial choice that shaped this project lives here. Claude reads this before proposing approaches — it stops the "we already decided not to do that" loop.
+
+## Rules
+
+- One entry per decision, newest on top.
+- Never delete. If a decision is reversed, add a new entry that supersedes the old one.
+- Keep entries short. Link out to a design doc if the reasoning is long.
+
+## Entry format
+
+```
+### {{YYYY-MM-DD}} — Short title
+
+**Decision**: What we chose.
+**Why**: The reasoning, including tradeoffs.
+**Alternatives considered**: What we rejected and why.
+**Supersedes**: (optional) link or reference to older decision.
+```
+
+---
+
+## Entries
+
+<!-- Add new decisions above this line. Oldest below. -->
+
+### {{DATE}} — Adopt odkrywaj-anchors for project memory
+
+**Decision**: Use the 8-anchor system plus optional Claude Code hooks.
+**Why**: Cut per-session re-explanation. Give Claude a router into project context instead of one giant CLAUDE.md.
+**Alternatives considered**: Single CLAUDE.md (too large, always loads), no anchors (wastes time every session).

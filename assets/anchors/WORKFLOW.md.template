@@ -1,0 +1,42 @@
+# Workflow
+
+How work actually happens here. Update when commands or process change.
+
+## Run locally
+
+```bash
+{{RUN_COMMAND}}
+```
+
+## Test
+
+```bash
+{{TEST_COMMAND}}
+```
+
+## Build
+
+```bash
+{{BUILD_COMMAND}}
+```
+
+## Deploy
+
+{{DEPLOY_STEPS}}
+
+## Common tasks
+
+### {{TASK_1_NAME}}
+
+{{TASK_1_STEPS}}
+
+## Code style
+
+- {{STYLE_RULE_1}}
+- TBD
+
+## Git conventions
+
+- **Commit message format**: {{COMMIT_FORMAT}}
+- **Branch naming**: {{BRANCH_NAMING}}
+- **PR / push policy**: {{PR_POLICY}}

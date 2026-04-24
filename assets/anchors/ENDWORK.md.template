@@ -1,0 +1,36 @@
+# Endwork
+
+Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapping up", "gg", or equivalent.
+
+## Checklist
+
+1. **Update `./PROGRESS.md`**
+   - Move finished items from "In progress" to "Done".
+   - Add new items to "Next" if they surfaced this session.
+   - Add a dated entry to the session log at the bottom (newest on top).
+
+2. **Log new decisions in `./DECISIONS.md`** (if any)
+   - Any non-trivial choice made this session gets an entry at the top.
+   - Append only. Never rewrite older entries.
+
+3. **Update `./CONTEXT.md`** (only if scope or audience changed)
+   - Usually no change. If user added to or removed from "What we're NOT building", update it.
+
+4. **Update `./TECHSTACK.md`** (only if stack changed)
+   - New dependency? Framework swapped? Version pinned?
+
+5. **Update `./FILEMAP.md`** (only if structure changed)
+   - New top-level folder? File moved? Convention changed?
+
+6. **Commit**
+   - Commit message in English, imperative mood ("add", "fix", "refactor").
+   - Include anchor updates in the same commit if they relate to the session's work.
+
+7. **Push** — only if user explicitly confirms.
+
+## Don't
+
+- Don't rewrite PROGRESS history — append only.
+- Don't edit DECISIONS entries — supersede with a new entry if reversed.
+- Don't push without explicit user OK.
+- Don't update anchors that didn't change. No-op edits pollute git blame.

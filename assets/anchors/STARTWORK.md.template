@@ -1,0 +1,25 @@
+# {{PROJECT_NAME}}
+
+{{ONE_SENTENCE_DESCRIPTION}}
+
+## Where to look
+
+Read this file first. Pull the other anchors on demand, not up front.
+
+- **What we're building, for whom, what we're NOT doing** → `./CONTEXT.md`
+- **Where things live in this repo** → `./FILEMAP.md`
+- **Languages, frameworks, dependencies** → `./TECHSTACK.md`
+- **How to run, test, deploy** → `./WORKFLOW.md`
+- **What's done, in progress, next** → `./PROGRESS.md`
+- **Decisions and why** (read before proposing approaches) → `./DECISIONS.md`
+- **Session wrap-up checklist** → `./ENDWORK.md`
+
+## How to work here
+
+When in doubt about an approach, check `./DECISIONS.md` before proposing — odds are the question has been answered.
+
+When closing a session, run the `./ENDWORK.md` checklist.
+
+---
+
+_Anchors scaffolded by [odkrywaj-anchors](https://github.com/odkrywaj-ai/odkrywaj-anchors) on {{DATE}}._
