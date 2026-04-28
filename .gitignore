@@ -21,3 +21,6 @@ desktop.ini
 # Local testing
 /test-output/
 /scratch/
+
+# oh-my-claudecode local state
+.omc/

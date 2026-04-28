@@ -19,11 +19,12 @@ if [ -z "$PROMPT" ]; then
   exit 0
 fi
 
-# Case-insensitive match on end-session triggers at start of prompt
-# (word boundary via \b so "gg wp" matches, "ggplot2" does not)
-TRIGGER_REGEX='^(kończymy|konczymy|endwork|end work|gg|wrapping up|wrap up|end of session|koniec sesji|kończ sesję|koncz sesje)\b'
+# Match end-session triggers ONLY when they are the entire prompt (modulo whitespace/punctuation).
+# Bare "gg" / "wrap up" are too common in normal prompts ("gg generate X", "wrap up this function")
+# so we require the trigger to stand alone, optionally followed by !, ., ?, or "wp" (gg wp).
+TRIGGER_REGEX='^[[:space:]]*(kończymy|konczymy|endwork|end work|wrapping up|wrap up|end of session|koniec sesji|kończ sesję|koncz sesje|gg wp|gg)[[:space:]]*[!.?]*[[:space:]]*$'
 
-if echo "$PROMPT" | grep -iE "$TRIGGER_REGEX" >/dev/null 2>&1; then
+if printf '%s' "$PROMPT" | grep -iE "$TRIGGER_REGEX" >/dev/null 2>&1; then
   ENDWORK="$CLAUDE_PROJECT_DIR/ENDWORK.md"
   if [ -f "$ENDWORK" ]; then
     CONTENT=$(cat "$ENDWORK")

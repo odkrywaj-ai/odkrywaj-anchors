@@ -59,11 +59,24 @@ Claude: [scans project] [asks 3 questions] [writes 8 anchors]
 | `DECISIONS.md` | Append-only log of *why*. Stops "we already rejected that" loops. |
 | `ENDWORK.md` | Wrap-up checklist. Auto-triggered on session close. |
 
-See [`references/examples.md`](./references/examples.md) for fully populated examples on three contrasting projects: a SvelteKit learning platform, a content marketing agency, and a solo Rust learning project.
+See [`skills/odkrywaj-anchors/references/examples.md`](./skills/odkrywaj-anchors/references/examples.md) for fully populated examples on three contrasting projects: a SvelteKit learning platform, a content marketing agency, and a solo Rust learning project.
 
 ## Install
 
-### Quick (one-liner)
+### Recommended — Claude Code plugin
+
+In any Claude Code session:
+
+```
+/plugin marketplace add odkrywaj-ai/odkrywaj-anchors
+/plugin install odkrywaj-anchors
+```
+
+Done. The skill is available globally in every project.
+
+### Fallback — one-liner installer
+
+For setups without plugin support:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/odkrywaj-ai/odkrywaj-anchors/main/install.sh | bash
@@ -75,7 +88,8 @@ The script clones the repo to `~/.claude/skills/odkrywaj-anchors` and verifies t
 
 ```bash
 mkdir -p ~/.claude/skills
-git clone https://github.com/odkrywaj-ai/odkrywaj-anchors.git ~/.claude/skills/odkrywaj-anchors
+git clone https://github.com/odkrywaj-ai/odkrywaj-anchors.git ~/.claude/skills/odkrywaj-anchors-plugin
+ln -s ~/.claude/skills/odkrywaj-anchors-plugin/skills/odkrywaj-anchors ~/.claude/skills/odkrywaj-anchors
 ```
 
 ### Verify
@@ -100,11 +114,19 @@ Claude will scan your project, ask a few questions, and scaffold the 8 anchors.
 
 ## Update
 
+Plugin install: `/plugin update odkrywaj-anchors` in Claude Code.
+
+Script install:
+
 ```bash
 cd ~/.claude/skills/odkrywaj-anchors && git pull
 ```
 
 ## Uninstall
+
+Plugin install: `/plugin uninstall odkrywaj-anchors`.
+
+Script install:
 
 ```bash
 rm -rf ~/.claude/skills/odkrywaj-anchors

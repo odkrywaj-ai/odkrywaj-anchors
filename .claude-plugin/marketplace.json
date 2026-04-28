@@ -1,0 +1,22 @@
+{
+  "name": "odkrywaj-anchors",
+  "owner": {
+    "name": "Odkrywaj.AI",
+    "url": "https://odkrywaj.ai"
+  },
+  "plugins": [
+    {
+      "name": "odkrywaj-anchors",
+      "source": "./",
+      "description": "Persistent project memory for Claude Code via 8 anchor files + optional hooks.",
+      "category": "memory",
+      "keywords": [
+        "memory",
+        "context",
+        "anchors",
+        "session",
+        "polish"
+      ]
+    }
+  ]
+}

@@ -8,10 +8,21 @@ set -u
 PROJECT_DIR="${1:-$(pwd)}"
 cd "$PROJECT_DIR" || { echo "ERROR: cannot cd into $PROJECT_DIR" >&2; exit 1; }
 
+# take N — like `head -N` but appends a marker if input was truncated, so Claude
+# knows the data was clipped instead of silently working with a half-view.
+take() {
+  local n="$1"
+  awk -v n="$n" '
+    { if (NR <= n) print; else extra++ }
+    END { if (extra) print "_(truncated; " extra " more line(s) — re-run scanner with a deeper limit if needed)_" }
+  '
+}
+
 echo "# Project Scan"
 echo ""
 echo "**Path**: $PROJECT_DIR"
-echo "**Scan date**: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+SCAN_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date +%s)
+echo "**Scan date**: $SCAN_DATE"
 echo ""
 
 # --- Top-level tree (depth 2) ---
@@ -19,7 +30,7 @@ echo "## Tree (depth 2)"
 echo ""
 echo '```'
 if command -v tree >/dev/null 2>&1; then
-  tree -L 2 -I 'node_modules|.git|dist|build|target|__pycache__|.next|.nuxt|venv|.venv|.svelte-kit' --dirsfirst 2>/dev/null | head -100 || true
+  tree -L 2 -I 'node_modules|.git|dist|build|target|__pycache__|.next|.nuxt|venv|.venv|.svelte-kit' --dirsfirst 2>/dev/null | take 100 || true
 else
   find . -maxdepth 2 \
     -not -path '*/node_modules*' \
@@ -30,7 +41,7 @@ else
     -not -path '*/__pycache__*' \
     -not -path '*/.next*' \
     -not -path '*/.venv*' \
-    2>/dev/null | sort | head -100 || true
+    2>/dev/null | sort | take 100 || true
 fi
 echo '```'
 echo ""
@@ -52,11 +63,11 @@ if [ -f "package.json" ]; then
     echo "- **Version**: $VERSION"
     [ -n "$DESC" ] && echo "- **Description**: $DESC"
     echo "- **Dependencies** (top 20):"
-    jq -r '.dependencies // {} | to_entries | .[] | "  - \(.key): \(.value)"' package.json 2>/dev/null | head -20 || true
+    jq -r '.dependencies // {} | to_entries | .[] | "  - \(.key): \(.value)"' package.json 2>/dev/null | take 20 || true
     echo "- **Dev dependencies** (top 10):"
-    jq -r '.devDependencies // {} | to_entries | .[] | "  - \(.key): \(.value)"' package.json 2>/dev/null | head -10 || true
+    jq -r '.devDependencies // {} | to_entries | .[] | "  - \(.key): \(.value)"' package.json 2>/dev/null | take 10 || true
     echo "- **Scripts**:"
-    jq -r '.scripts // {} | to_entries | .[] | "  - \(.key): \(.value)"' package.json 2>/dev/null | head -10 || true
+    jq -r '.scripts // {} | to_entries | .[] | "  - \(.key): \(.value)"' package.json 2>/dev/null | take 10 || true
   else
     echo "_(install jq for dependency details — package.json exists)_"
   fi
@@ -68,7 +79,7 @@ if [ -f "pyproject.toml" ]; then
   echo "### Python (pyproject.toml)"
   echo ""
   echo '```toml'
-  head -40 pyproject.toml 2>/dev/null || true
+  take 40 < pyproject.toml 2>/dev/null || true
   echo '```'
   echo ""
 fi
@@ -78,7 +89,7 @@ if [ -f "requirements.txt" ]; then
   echo "### Python (requirements.txt)"
   echo ""
   echo '```'
-  head -30 requirements.txt 2>/dev/null || true
+  take 30 < requirements.txt 2>/dev/null || true
   echo '```'
   echo ""
 fi
@@ -88,7 +99,7 @@ if [ -f "Cargo.toml" ]; then
   echo "### Rust (Cargo.toml)"
   echo ""
   echo '```toml'
-  head -40 Cargo.toml 2>/dev/null || true
+  take 40 < Cargo.toml 2>/dev/null || true
   echo '```'
   echo ""
 fi
@@ -98,7 +109,7 @@ if [ -f "go.mod" ]; then
   echo "### Go (go.mod)"
   echo ""
   echo '```'
-  head -30 go.mod 2>/dev/null || true
+  take 30 < go.mod 2>/dev/null || true
   echo '```'
   echo ""
 fi
@@ -108,7 +119,7 @@ if [ -f "Gemfile" ]; then
   echo "### Ruby (Gemfile)"
   echo ""
   echo '```ruby'
-  head -30 Gemfile 2>/dev/null || true
+  take 30 < Gemfile 2>/dev/null || true
   echo '```'
   echo ""
 fi
@@ -120,9 +131,9 @@ if [ -f "composer.json" ]; then
   if command -v jq >/dev/null 2>&1; then
     jq -r '"- Name: \(.name // "unknown")"' composer.json 2>/dev/null || true
     echo "- Requires:"
-    jq -r '.require // {} | to_entries | .[] | "  - \(.key): \(.value)"' composer.json 2>/dev/null | head -20 || true
+    jq -r '.require // {} | to_entries | .[] | "  - \(.key): \(.value)"' composer.json 2>/dev/null | take 20 || true
   else
-    head -30 composer.json 2>/dev/null || true
+    take 30 < composer.json 2>/dev/null || true
   fi
   echo ""
 fi
@@ -172,7 +183,7 @@ echo "## Existing README"
 echo ""
 if [ -f "README.md" ]; then
   echo '```markdown'
-  head -40 README.md 2>/dev/null || true
+  take 40 < README.md 2>/dev/null || true
   echo '```'
 else
   echo "_No README.md found._"
@@ -184,11 +195,11 @@ echo "## Existing CLAUDE.md"
 echo ""
 if [ -f "CLAUDE.md" ]; then
   echo '```markdown'
-  head -50 CLAUDE.md 2>/dev/null || true
+  take 50 < CLAUDE.md 2>/dev/null || true
   echo '```'
 elif [ -f ".claude/CLAUDE.md" ]; then
   echo '```markdown'
-  head -50 .claude/CLAUDE.md 2>/dev/null || true
+  take 50 < .claude/CLAUDE.md 2>/dev/null || true
   echo '```'
 else
   echo "_No CLAUDE.md found._"
@@ -227,7 +238,7 @@ find . -maxdepth 1 -type d \
   -not -name 'dist' \
   -not -name 'build' \
   -not -name 'target' \
-  2>/dev/null | sort | while read -r dir; do
+  -print0 2>/dev/null | sort -z | while IFS= read -r -d '' dir; do
   COUNT=$(find "$dir" -type f 2>/dev/null | wc -l | tr -d ' ')
   echo "- \`$dir\`: $COUNT files"
 done

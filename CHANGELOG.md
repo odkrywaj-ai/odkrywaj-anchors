@@ -4,6 +4,47 @@ All notable changes to `odkrywaj-anchors` are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] — 2026-04-28
+
+Robustness and reviewer-flagged bugfixes. No breaking changes.
+
+### Fixed
+
+- **CRITICAL — `assets/hooks/on_user_prompt.sh`**: end-session trigger regex no longer false-positives on common prompts like "gg generate a graph", "wrap up this function", or "endwork is hard, please refactor". Triggers now require the keyword to stand alone (modulo whitespace + `!.?` punctuation). Verified with 12-case unit test.
+- **HIGH — `assets/hooks/on_pre_compact.sh`**: refuses to run if `CLAUDE_PROJECT_DIR` is unset or invalid (prevented `$BACKUP_DIR` collapsing to `/anchors-backups`). Rolling-window cleanup rewritten with `find -print0` so empty matches and odd filenames are safe; final `rm` guarded with `case` check that path is inside `$BACKUP_DIR`.
+- **HIGH — `install.sh`**: `set -euo pipefail` so partial failures don't ship a half-installed skill. `git clone`/`pull` errors now surface to the user instead of being swallowed by `2>&1`. Pre-check refuses to operate on `/`, `$HOME`, or empty `$SKILL_DIR`. Hand-edited content in `$SKILL_DIR` is moved to a `.bak-<timestamp>` directory rather than nuked.
+- **HIGH — `.claude-plugin/plugin.json`**: added `engines.claude-code` constraint and `displayName` so the `/plugin` UI surfaces a friendly name and older clients fail clean.
+- **MEDIUM — `.claude-plugin/marketplace.json`**: removed duplicate `version`/`author`/`license` fields (now resolved from `plugin.json`, no drift on bumps).
+- **MEDIUM — `assets/hooks/on_session_start.sh`**: added `set -u` and a `CLAUDE_PROJECT_DIR` guard.
+- **MEDIUM — `scripts/scan_project.sh`**: `date -u +...Z` now falls back to `date +%s` on busybox; folder-iteration uses `find -print0` so paths with spaces (common on Windows) work.
+
+### Added
+
+- **`scripts/scan_project.sh`** — `take N` helper replaces `head -N` calls and appends `_(truncated; X more line(s))_` markers when output is clipped, so Claude knows the data was truncated instead of silently working with a half-view.
+
+### Changed
+
+- **`SKILL.md` frontmatter `description`** — trimmed from 908 chars to ~700 by dropping redundant trigger paraphrases. Stays well under the 1024-char Anthropic recommendation while keeping every distinct trigger phrase.
+
+## [0.2.0] — 2026-04-28
+
+Repackaged as a Claude Code plugin with marketplace manifest. One-command install via `/plugin`.
+
+### Added
+
+- `.claude-plugin/plugin.json` — plugin manifest (name, version, author, repo, license, keywords).
+- `.claude-plugin/marketplace.json` — self-marketplace so users can `/plugin marketplace add odkrywaj-ai/odkrywaj-anchors` then `/plugin install odkrywaj-anchors`.
+- Plugin layout: skill content moved to `skills/odkrywaj-anchors/` (`SKILL.md`, `assets/`, `scripts/`, `references/`).
+
+### Changed
+
+- Tightened `SKILL.md` — removed duplication between "Modes" and intro existence-check, merged "Gotchas" and "What anchors are NOT" into "Merge strategy" + "Principles" sections, trimmed prose without losing rules.
+- README install section now leads with `/plugin marketplace add` and keeps `install.sh` as a fallback for users without plugin support.
+
+### Migration
+
+- Users who installed v0.1.0 by cloning to `~/.claude/skills/odkrywaj-anchors/`: re-run `install.sh` (it now points at the new layout) or remove the old clone and install via the plugin command.
+
 ## [0.1.0] — 2026-04-24
 
 First public release.
@@ -22,4 +63,6 @@ First public release.
 - `references/examples.md` with fully populated anchors on three contrasting projects (SvelteKit product, content agency, solo Rust project).
 - `install.sh` one-liner installer with pre-flight checks and soft dependency warnings.
 
+[0.2.1]: https://github.com/odkrywaj-ai/odkrywaj-anchors/releases/tag/v0.2.1
+[0.2.0]: https://github.com/odkrywaj-ai/odkrywaj-anchors/releases/tag/v0.2.0
 [0.1.0]: https://github.com/odkrywaj-ai/odkrywaj-anchors/releases/tag/v0.1.0
