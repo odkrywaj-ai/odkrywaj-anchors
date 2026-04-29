@@ -14,7 +14,7 @@ fi
 STARTWORK="$PROJECT_DIR/STARTWORK.md"
 
 if [ -f "$STARTWORK" ]; then
-  echo "--- Project anchors (auto-loaded from STARTWORK.md) ---"
+  echo "--- Project organizator (auto-loaded from STARTWORK.md) ---"
   cat "$STARTWORK"
   echo ""
   echo "--- End STARTWORK.md ---"

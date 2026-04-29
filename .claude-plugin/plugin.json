@@ -1,14 +1,14 @@
 {
-  "name": "odkrywaj-anchors",
-  "displayName": "Odkrywaj Anchors",
-  "version": "0.2.1",
-  "description": "Persistent project memory for Claude Code. Scaffolds 8 anchor markdown files plus optional hooks so Claude keeps full context across sessions and stops re-asking resolved questions.",
+  "name": "odkrywaj-organizator",
+  "displayName": "Odkrywaj Organizator",
+  "version": "0.3.0",
+  "description": "Persistent project memory for Claude Code. Scaffolds 8 organizator files plus optional hooks so Claude keeps full context across sessions and stops re-asking resolved questions.",
   "author": {
     "name": "Odkrywaj.AI",
     "url": "https://odkrywaj.ai"
   },
-  "homepage": "https://github.com/odkrywaj-ai/odkrywaj-anchors",
-  "repository": "https://github.com/odkrywaj-ai/odkrywaj-anchors",
+  "homepage": "https://github.com/odkrywaj-ai/odkrywaj-organizator",
+  "repository": "https://github.com/odkrywaj-ai/odkrywaj-organizator",
   "license": "MIT",
   "engines": {
     "claude-code": ">=1.0.0"
@@ -16,7 +16,7 @@
   "keywords": [
     "memory",
     "context",
-    "anchors",
+    "organizator",
     "skill",
     "session",
     "polish",

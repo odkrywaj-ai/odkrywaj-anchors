@@ -1,5 +1,5 @@
 #!/bin/bash
-# scan_project.sh — gather project info for odkrywaj-anchors
+# scan_project.sh — gather project info for odkrywaj-organizator
 # Usage: scan_project.sh [project_dir]  (defaults to current directory)
 # Output: markdown-structured report to stdout, designed for Claude Code to parse.
 
@@ -206,22 +206,22 @@ else
 fi
 echo ""
 
-# --- Existing anchors ---
-echo "## Existing anchors"
+# --- Existing organizator files ---
+echo "## Existing organizator files"
 echo ""
-ANCHORS_FOUND=0
-for anchor in STARTWORK.md CONTEXT.md FILEMAP.md TECHSTACK.md WORKFLOW.md PROGRESS.md DECISIONS.md ENDWORK.md; do
-  if [ -f "$anchor" ]; then
-    ANCHORS_FOUND=1
-    LINES=$(wc -l < "$anchor" 2>/dev/null || echo "?")
-    echo "- \`$anchor\` exists ($LINES lines)"
+ORGANIZATOR_FOUND=0
+for entry in STARTWORK.md CONTEXT.md FILEMAP.md TECHSTACK.md WORKFLOW.md PROGRESS.md DECISIONS.md ENDWORK.md; do
+  if [ -f "$entry" ]; then
+    ORGANIZATOR_FOUND=1
+    LINES=$(wc -l < "$entry" 2>/dev/null || echo "?")
+    echo "- \`$entry\` exists ($LINES lines)"
   fi
 done
-if [ "$ANCHORS_FOUND" = "0" ]; then
-  echo "_No anchor files present. Skill runs in **init mode**._"
+if [ "$ORGANIZATOR_FOUND" = "0" ]; then
+  echo "_No organizator files present. Skill runs in **init mode**._"
 else
   echo ""
-  echo "_Anchor files present — skill should run in **update mode**, check with the user before overwriting._"
+  echo "_Organizator files present — skill should run in **update mode**, check with the user before overwriting._"
 fi
 echo ""
 

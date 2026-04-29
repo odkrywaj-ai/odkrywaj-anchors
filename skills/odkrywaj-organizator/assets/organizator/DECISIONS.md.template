@@ -25,8 +25,8 @@
 
 <!-- Add new decisions above this line. Oldest below. -->
 
-### {{DATE}} — Adopt odkrywaj-anchors for project memory
+### {{DATE}} — Adopt odkrywaj-organizator for project memory
 
-**Decision**: Use the 8-anchor system plus optional Claude Code hooks.
+**Decision**: Use the 8-file organizator system plus optional Claude Code hooks.
 **Why**: Cut per-session re-explanation. Give Claude a router into project context instead of one giant CLAUDE.md.
-**Alternatives considered**: Single CLAUDE.md (too large, always loads), no anchors (wastes time every session).
+**Alternatives considered**: Single CLAUDE.md (too large, always loads), no organizator (wastes time every session).

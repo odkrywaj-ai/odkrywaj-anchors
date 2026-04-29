@@ -1,8 +1,43 @@
 # Changelog
 
-All notable changes to `odkrywaj-anchors` are documented here.
+All notable changes to `odkrywaj-organizator` (formerly `odkrywaj-anchors`) are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.3.0] — 2026-04-28
+
+**BREAKING — full rename from `odkrywaj-anchors` → `odkrywaj-organizator`.** The product, the concept, and the magic words all change. There is no auto-migration of existing user content; users on v0.2.x must reinstall and re-trigger the scaffold.
+
+### Changed
+
+- **Plugin name**: `odkrywaj-anchors` → `odkrywaj-organizator`. New install command:
+  ```
+  /plugin marketplace add odkrywaj-ai/odkrywaj-organizator
+  /plugin install odkrywaj-organizator
+  ```
+- **GitHub repository**: renamed `odkrywaj-ai/odkrywaj-anchors` → `odkrywaj-ai/odkrywaj-organizator`. GitHub serves redirects from the old name for ~30 days, but update bookmarks and CI references.
+- **Skill directory**: `skills/odkrywaj-anchors/` → `skills/odkrywaj-organizator/`.
+- **Asset directory**: `skills/.../assets/anchors/` → `skills/.../assets/organizator/`.
+- **Concept terminology**: "anchor file" → "organizator file"; "the anchors" → "the organizator" or "the organizator files" depending on context. The 8 file names themselves (`STARTWORK.md`, `CONTEXT.md`, …, `ENDWORK.md`) are unchanged.
+- **Backup directory**: `.claude/anchors-backups/` → `.claude/organizator-backups/`. Existing user backups under the old path are NOT migrated — old files stay where they are; new snapshots write to the new path.
+- **`displayName`** in plugin manifest: "Odkrywaj Anchors" → "Odkrywaj Organizator".
+
+### Magic words (replaced — old triggers removed)
+
+- `Organizuj!`
+- `ustaw organizatora`
+- `Accio organizator`
+- `bootstrap organizator`
+- `set up organizator files`
+
+Removed (no longer trigger the skill): `Kotwica!`, `Odkrywaj potencjał`, `Odkrywaj projekt`, `Accio anchors`, `ustaw anchory`, `ustaw kotwice`, `bootstrap anchors`, `set up anchor files`.
+
+### Migration
+
+- **`/plugin install odkrywaj-anchors` users**: run `/plugin uninstall odkrywaj-anchors` then `/plugin marketplace add odkrywaj-ai/odkrywaj-organizator` + `/plugin install odkrywaj-organizator`.
+- **`install.sh` users**: re-run the script. It auto-removes legacy `~/.claude/skills/odkrywaj-anchors` and `~/.claude/skills/.odkrywaj-anchors-source` paths and installs to the new `~/.claude/skills/odkrywaj-organizator` location.
+- **Per-project files** (`STARTWORK.md`, `CONTEXT.md`, …, `ENDWORK.md`): unchanged. No user-project edits required.
+- **Per-project hooks** (`.claude/settings.json` + `.claude/hooks/`): re-run the skill in hooks-only mode to pick up the new backup-dir name. Old `.claude/anchors-backups/` directories can be deleted manually if you want.
 
 ## [0.2.1] — 2026-04-28
 
@@ -63,6 +98,7 @@ First public release.
 - `references/examples.md` with fully populated anchors on three contrasting projects (SvelteKit product, content agency, solo Rust project).
 - `install.sh` one-liner installer with pre-flight checks and soft dependency warnings.
 
-[0.2.1]: https://github.com/odkrywaj-ai/odkrywaj-anchors/releases/tag/v0.2.1
-[0.2.0]: https://github.com/odkrywaj-ai/odkrywaj-anchors/releases/tag/v0.2.0
-[0.1.0]: https://github.com/odkrywaj-ai/odkrywaj-anchors/releases/tag/v0.1.0
+[0.3.0]: https://github.com/odkrywaj-ai/odkrywaj-organizator/releases/tag/v0.3.0
+[0.2.1]: https://github.com/odkrywaj-ai/odkrywaj-organizator/releases/tag/v0.2.1
+[0.2.0]: https://github.com/odkrywaj-ai/odkrywaj-organizator/releases/tag/v0.2.0
+[0.1.0]: https://github.com/odkrywaj-ai/odkrywaj-organizator/releases/tag/v0.1.0

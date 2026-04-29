@@ -24,7 +24,7 @@ Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapp
 
 6. **Commit**
    - Commit message in English, imperative mood ("add", "fix", "refactor").
-   - Include anchor updates in the same commit if they relate to the session's work.
+   - Include organizator updates in the same commit if they relate to the session's work.
 
 7. **Push** — only if user explicitly confirms.
 
@@ -33,4 +33,4 @@ Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapp
 - Don't rewrite PROGRESS history — append only.
 - Don't edit DECISIONS entries — supersede with a new entry if reversed.
 - Don't push without explicit user OK.
-- Don't update anchors that didn't change. No-op edits pollute git blame.
+- Don't update organizator files that didn't change. No-op edits pollute git blame.

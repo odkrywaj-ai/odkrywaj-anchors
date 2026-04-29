@@ -4,7 +4,7 @@
 
 ## Where to look
 
-Read this file first. Pull the other anchors on demand, not up front.
+Read this file first. Pull the other organizator files on demand, not up front.
 
 - **What we're building, for whom, what we're NOT doing** → `./CONTEXT.md`
 - **Where things live in this repo** → `./FILEMAP.md`
@@ -22,4 +22,4 @@ When closing a session, run the `./ENDWORK.md` checklist.
 
 ---
 
-_Anchors scaffolded by [odkrywaj-anchors](https://github.com/odkrywaj-ai/odkrywaj-anchors) on {{DATE}}._
+_Organizator scaffolded by [odkrywaj-organizator](https://github.com/odkrywaj-ai/odkrywaj-organizator) on {{DATE}}._

@@ -1,19 +1,19 @@
 {
-  "name": "odkrywaj-anchors",
+  "name": "odkrywaj-organizator",
   "owner": {
     "name": "Odkrywaj.AI",
     "url": "https://odkrywaj.ai"
   },
   "plugins": [
     {
-      "name": "odkrywaj-anchors",
+      "name": "odkrywaj-organizator",
       "source": "./",
-      "description": "Persistent project memory for Claude Code via 8 anchor files + optional hooks.",
+      "description": "Persistent project memory for Claude Code via 8 organizator files + optional hooks.",
       "category": "memory",
       "keywords": [
         "memory",
         "context",
-        "anchors",
+        "organizator",
         "session",
         "polish"
       ]

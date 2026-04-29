@@ -34,8 +34,8 @@ What actually happened. Paste any error messages or Claude's confused response.
 
 ## Which mode was running
 
-- [ ] init (fresh project, no anchors yet)
-- [ ] update (anchors already existed)
+- [ ] init (fresh project, no organizator files yet)
+- [ ] update (organizator files already existed)
 - [ ] hooks-only
 
 ## Additional context

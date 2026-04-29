@@ -1,6 +1,6 @@
-# Anchor Examples
+# Organizator Examples
 
-This file shows three worked examples of filled anchor files on projects of very different shapes. The goal is not to copy them — it is to see what "populated" looks like across a team product, a non-code operation, and a solo learning project.
+This file shows three worked examples of filled organizator files on projects of very different shapes. The goal is not to copy them — it is to see what "populated" looks like across a team product, a non-code operation, and a solo learning project.
 
 Skim the example whose shape matches your own. Read the "What to notice" bullets at the end of each; they call out the non-obvious choices.
 
@@ -14,7 +14,7 @@ Loaded on demand, not per session. Depth is fine here.
 
 Polish-language AI education platform inside the Odkrywaj.AI ecosystem. Gamified courses with XP and badges, Stripe payments, Supabase auth, Bunny.net video. Built by a non-technical founder pairing with Claude in Claude Code. Public-facing product with paying users.
 
-### What the anchors look like
+### What the organizator looks like
 
 #### STARTWORK.md
 ```markdown
@@ -24,7 +24,7 @@ Polish-language AI education platform with gamified courses, XP, badges, and Str
 
 ## Where to look
 
-Read this file first. Pull the other anchors on demand, not up front.
+Read this file first. Pull the other organizator files on demand, not up front.
 
 - **What we're building, for whom, what we're NOT doing** → `./CONTEXT.md`
 - **Where things live in this repo** → `./FILEMAP.md`
@@ -42,7 +42,7 @@ When closing a session, run the `./ENDWORK.md` checklist.
 
 ---
 
-_Anchors scaffolded by [odkrywaj-anchors](https://github.com/odkrywaj-ai/odkrywaj-anchors) on 2026-04-20._
+_Organizator scaffolded by [odkrywaj-organizator](https://github.com/odkrywaj-ai/odkrywaj-organizator) on 2026-04-20._
 ```
 
 #### CONTEXT.md
@@ -291,7 +291,7 @@ Moved webhook handling from a SvelteKit endpoint to a Pages Function for better 
 
 ### 2026-04-15 — Initial scaffold
 
-Anchors generated via odkrywaj-anchors. Baseline captured.
+Organizator generated via odkrywaj-organizator. Baseline captured.
 ```
 
 #### DECISIONS.md
@@ -330,11 +330,11 @@ Anchors generated via odkrywaj-anchors. Baseline captured.
 **Why**: Smaller bundle for content-heavy pages, simpler mental model (runes + file-based routing), Cloudflare Pages adapter works cleanly. Personal fit: one person maintaining this — Svelte reduces ceremony.
 **Alternatives considered**: Next.js (larger bundle, React re-renders fight the gamified UI), Astro (great for content but weaker for interactive lesson players), Remix (fewer Polish community resources).
 
-### 2026-04-05 — Adopt odkrywaj-anchors for project memory
+### 2026-04-05 — Adopt odkrywaj-organizator (project memory) for project memory
 
-**Decision**: Use the 8-anchor system plus optional Claude Code hooks.
+**Decision**: Use the 8-file organizator system plus optional Claude Code hooks.
 **Why**: Cut per-session re-explanation. Give Claude a router into project context instead of one giant CLAUDE.md.
-**Alternatives considered**: Single CLAUDE.md (too large, always loads), no anchors (wastes time every session).
+**Alternatives considered**: Single CLAUDE.md (too large, always loads), no organizator (wastes time every session).
 ```
 
 #### ENDWORK.md
@@ -365,7 +365,7 @@ Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapp
 
 6. **Commit**
    - English imperative: `feat: …`, `fix: …`, `docs: …`, `refactor: …`
-   - Include anchor updates in the same commit if they relate to the session's work.
+   - Include organizator updates in the same commit if they relate to the session's work.
 
 7. **Push** — only on explicit user confirmation. No auto-push.
 
@@ -391,9 +391,9 @@ Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapp
 
 ### Context
 
-Fictional 5-person content marketing agency running campaigns for SaaS clients. The founder, Alex, uses Claude for brief-writing, draft copy, and campaign retros. Anchors exist so Claude remembers which client has which voice, what's been pitched, and what's out of scope. Not a code project.
+Fictional 5-person content marketing agency running campaigns for SaaS clients. The founder, Alex, uses Claude for brief-writing, draft copy, and campaign retros. Organizator exists so Claude remembers which client has which voice, what's been pitched, and what's out of scope. Not a code project.
 
-### What the anchors look like
+### What the organizator looks like
 
 #### STARTWORK.md
 ```markdown
@@ -403,7 +403,7 @@ Five-person content marketing agency serving B2B SaaS clients. Claude is used fo
 
 ## Where to look
 
-Read this file first. Pull the other anchors on demand, not up front.
+Read this file first. Pull the other organizator files on demand, not up front.
 
 - **Who we serve, what we do and don't do** → `./CONTEXT.md`
 - **Where the artefacts live (Notion, Figma, Airtable)** → `./FILEMAP.md`
@@ -421,7 +421,7 @@ When closing a session, run the `./ENDWORK.md` checklist.
 
 ---
 
-_Anchors scaffolded by [odkrywaj-anchors](https://github.com/odkrywaj-ai/odkrywaj-anchors) on 2026-03-12._
+_Organizator scaffolded by [odkrywaj-organizator](https://github.com/odkrywaj-ai/odkrywaj-organizator) on 2026-03-12._
 ```
 
 #### CONTEXT.md
@@ -648,9 +648,9 @@ Draft shared with CMO. Called out uncertainty on "how much fintech jargon" — w
 
 Team retro went well. One surface: we mis-timed the pre-launch teaser by a week. Logged in retro doc for future reference.
 
-### 2026-04-15 — Initial anchor scaffold
+### 2026-04-15 — Initial organizator scaffold
 
-Anchors generated via odkrywaj-anchors. Baseline captured.
+Organizator generated via odkrywaj-organizator. Baseline captured.
 ```
 
 #### DECISIONS.md
@@ -686,9 +686,9 @@ Anchors generated via odkrywaj-anchors. Baseline captured.
 **Why**: Notion DB properties let us filter across clients ("show all briefs for fintech", "show all briefs with email as primary channel"). Google Docs is unstructured. The cross-client lookup turned out to be the daily workflow, not the edge case.
 **Alternatives considered**: Google Docs (no structured query across briefs), Coda (smaller ecosystem, harder for clients to view), Airtable alone (better for calendar than long-form writing).
 
-### 2026-02-15 — Adopt odkrywaj-anchors for project memory
+### 2026-02-15 — Adopt odkrywaj-organizator (project memory) for project memory
 
-**Decision**: Use the 8-anchor system so Claude remembers agency context across sessions.
+**Decision**: Use the 8-file organizator system so Claude remembers agency context across sessions.
 **Why**: Cuts 10 minutes of re-briefing at the start of every draft session. Also forces us to write down decisions we were making implicitly.
 ```
 
@@ -717,7 +717,7 @@ Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapp
 5. **Update `./FILEMAP.md`** (only if the Notion / Airtable layout changed)
    - New client folder? Template reorganized?
 
-6. **Sync Airtable campaign statuses** — this is the one non-anchor step; stale Airtable burns team trust more than anything.
+6. **Sync Airtable campaign statuses** — this is the one non-organizator step; stale Airtable burns team trust more than anything.
 
 7. **Post week-close summary in #team Slack** on Fridays only.
 
@@ -730,10 +730,10 @@ Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapp
 
 ### What to notice
 
-- **The 8 files are the same, the content is wildly different.** Anchors work for non-code projects. The structure is about "what Claude needs to know", not "what the programming language is".
+- **The 8 files are the same, the content is wildly different.** The organizator works for non-code projects. The structure is about "what Claude needs to know", not "what the programming language is".
 - **FILEMAP describes a Notion workspace, not a code tree.** A filesystem tree is one way to use it; a workspace layout is another. What matters is that Claude can find things.
 - **TECHSTACK is "Tools & systems", not "Languages and frameworks".** The file header in the filename stays `TECHSTACK.md` (do not rename) but the internal H1 adapts to the domain.
-- **ENDWORK has a domain-specific step grafted on** ("Sync Airtable campaign statuses") — these non-anchor housekeeping items are exactly what ENDWORK should absorb so Claude nags the user to do them.
+- **ENDWORK has a domain-specific step grafted on** ("Sync Airtable campaign statuses") — these non-organizator housekeeping items are exactly what ENDWORK should absorb so Claude nags the user to do them.
 - **DECISIONS are about process and tooling**, not tech choices. The file format works for both.
 
 ---
@@ -742,9 +742,9 @@ Session wrap-up checklist. Run when the user says "kończymy", "endwork", "wrapp
 
 ### Context
 
-An individual developer with a decade of Java experience is learning Rust by building a small CLI password manager. No team, no users yet beyond self + two friends. Anchors exist so Claude tracks what the user has learned, what they've rejected, and the specific bugs they're stuck on. Small project — anchors stay small to match.
+An individual developer with a decade of Java experience is learning Rust by building a small CLI password manager. No team, no users yet beyond self + two friends. Organizator exists so Claude tracks what the user has learned, what they've rejected, and the specific bugs they're stuck on. Small project — organizator stays small to match.
 
-### What the anchors look like
+### What the organizator looks like
 
 #### STARTWORK.md
 ```markdown
@@ -768,7 +768,7 @@ I'm learning Rust — when proposing patterns, prefer "idiomatic beginner" over 
 
 ---
 
-_Anchors scaffolded by [odkrywaj-anchors](https://github.com/odkrywaj-ai/odkrywaj-anchors) on 2026-04-01._
+_Organizator scaffolded by [odkrywaj-organizator](https://github.com/odkrywaj-ai/odkrywaj-organizator) on 2026-04-01._
 ```
 
 #### CONTEXT.md
@@ -968,7 +968,7 @@ Encrypt then decrypt a known plaintext, assertion passes. First real Rust milest
 
 ### 2026-04-01 — Initial scaffold
 
-Anchors generated via odkrywaj-anchors. Baseline captured.
+Organizator generated via odkrywaj-organizator. Baseline captured.
 ```
 
 #### DECISIONS.md
@@ -999,9 +999,9 @@ Anchors generated via odkrywaj-anchors. Baseline captured.
 **Why**: Modern OWASP recommendation, built-in resistance to GPU and side-channel attacks, mature Rust crate. Bcrypt is fine but not what I'd pick starting in 2026.
 **Alternatives considered**: bcrypt (legacy default), scrypt (fine, less current momentum than argon2), PBKDF2 (weakest of the options).
 
-### 2026-04-01 — Adopt odkrywaj-anchors
+### 2026-04-01 — Adopt odkrywaj-organizator (project memory)
 
-**Decision**: Use the 8-anchor system even for a solo learning project.
+**Decision**: Use the 8-file organizator system even for a solo learning project.
 **Why**: Track what I've tried, what I've rejected, what I don't understand yet. Saves re-explaining the project to Claude every evening.
 ```
 
@@ -1040,12 +1040,12 @@ Session wrap-up.
 
 ### What to notice
 
-- **Anchors on a tiny solo project look different from anchors on a team production app.** Both are correct. The template fits the project, not the other way around.
+- **An organizator on a tiny solo project looks different from one on a team production app.** Both are correct. The template fits the project, not the other way around.
 - **PROGRESS "Blocked" is a learning blocker, not an external one** — "hit a lifetime error I don't understand yet". That is a valid entry; blocking on understanding is real.
 - **STARTWORK "How to work here" carries a collaboration preference** ("prefer idiomatic beginner over clever") — this is where per-project tuning instructions live.
 - **ENDWORK includes a project-specific "Don't"** — the `.clone()` anti-pattern. That nudge is exactly what ENDWORK should encode so the user-plus-Claude pair avoids a known trap.
-- **The whole file set is short.** A one-person learning project does not need 150-line anchors. Shrinking them is not a failure — it is a correct fit.
+- **The whole file set is short.** A one-person learning project does not need 150-line organizator files. Shrinking them is not a failure — it is a correct fit.
 
 ---
 
-These examples are starting points, not templates. Your anchors will look different from all three, and that is the point. Populate with what your project actually needs, prune what is not earning its place, and treat the files as living documents that change as the project does.
+These examples are starting points, not templates. Your organizator files will look different from all three, and that is the point. Populate with what your project actually needs, prune what is not earning its place, and treat the files as living documents that change as the project does.

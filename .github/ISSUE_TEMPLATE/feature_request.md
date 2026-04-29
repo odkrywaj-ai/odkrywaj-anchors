@@ -20,9 +20,9 @@ Other ways to solve the same problem, and why you prefer the proposed one.
 
 ## Scope check
 
-Anchors are meant to stay small and focused. Does this feature keep the project-root footprint minimal? Would it bloat anchors past the line limits in the `What the anchors are NOT` section of `SKILL.md`?
+Organizator files are meant to stay small and focused. Does this feature keep the project-root footprint minimal? Would it bloat the organizator past the line limits in `SKILL.md`?
 
-- [ ] Yes, this keeps anchors lean
+- [ ] Yes, this keeps the organizator lean
 - [ ] I'm not sure — happy to discuss
 - [ ] No, but the tradeoff is worth it because...
 

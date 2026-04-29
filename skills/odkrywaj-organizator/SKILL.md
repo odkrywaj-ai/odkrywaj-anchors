@@ -1,29 +1,29 @@
 ---
-name: odkrywaj-anchors
-description: Scaffold 8 project anchor markdown files (STARTWORK, CONTEXT, FILEMAP, TECHSTACK, WORKFLOW, PROGRESS, DECISIONS, ENDWORK) plus optional Claude Code hooks so Claude keeps full project memory across sessions and stops re-asking resolved questions. Trigger on magic words "Odkrywaj potencjał", "Kotwica!", "Accio anchors", "ustaw anchory", "bootstrap anchors", "set up anchor files". Also trigger WITHOUT magic words when the user describes the underlying problem — "Claude forgets between sessions", "persistent memory for my codebase", "stop Claude re-proposing rejected ideas", or any equivalent complaint about losing project context across Claude Code sessions. Run before serious multi-session work on a growing repo.
+name: odkrywaj-organizator
+description: Scaffold 8 project organizator markdown files (STARTWORK, CONTEXT, FILEMAP, TECHSTACK, WORKFLOW, PROGRESS, DECISIONS, ENDWORK) plus optional Claude Code hooks so Claude keeps full project memory across sessions and stops re-asking resolved questions. Trigger on magic words "Organizuj!", "ustaw organizatora", "Accio organizator", "bootstrap organizator", "set up organizator files". Also trigger WITHOUT magic words when the user describes the underlying problem — "Claude forgets between sessions", "persistent memory for my codebase", "stop Claude re-proposing rejected ideas", or any equivalent complaint about losing project context across Claude Code sessions. Run before serious multi-session work on a growing repo.
 ---
 
-# Project Anchors
+# Project Organizator
 
 ## Why this exists
 
 Claude Code sessions forget. On any project bigger than a weekend hack, users waste the first 10 minutes of every session re-explaining what the code does, what was tried, and what was rejected. This skill drops 8 small markdown files in the project root that Claude reads on demand.
 
-Key insight: **STARTWORK.md is a router, not a document.** It points Claude at the right anchor for the current task (CONTEXT for big picture, FILEMAP for navigation, DECISIONS for rejected approaches). Loading STARTWORK first, then pulling one relevant anchor, beats stuffing one giant CLAUDE.md.
+Key insight: **STARTWORK.md is a router, not a document.** It points Claude at the right organizator file for the current task (CONTEXT for big picture, FILEMAP for navigation, DECISIONS for rejected approaches). Loading STARTWORK first, then pulling one relevant file, beats stuffing one giant CLAUDE.md.
 
 ## Modes (auto-detected from project state)
 
 Before doing anything, check the project root for any of: `STARTWORK.md`, `CONTEXT.md`, `FILEMAP.md`, `TECHSTACK.md`, `WORKFLOW.md`, `PROGRESS.md`, `DECISIONS.md`, `ENDWORK.md`.
 
-- **Init mode** — no anchor files exist. Run the full flow: scan → ask gaps → write 8 files → offer hooks.
-- **Update mode** — at least one anchor exists. Stop and offer three choices: refresh from scan (per-file diff, preserve hand-edited prose), fill missing only, or cancel. Never silently clobber a hand-edited anchor.
-- **Hooks-only mode** — all 8 anchors exist and the user asks to install hooks. Skip scan + questions, jump to Step 4.
+- **Init mode** — no organizator files exist. Run the full flow: scan → ask gaps → write 8 files → offer hooks.
+- **Update mode** — at least one organizator file exists. Stop and offer three choices: refresh from scan (per-file diff, preserve hand-edited prose), fill missing only, or cancel. Never silently clobber a hand-edited organizator file.
+- **Hooks-only mode** — all 8 organizator files exist and the user asks to install hooks. Skip scan + questions, jump to Step 4.
 
 ## Workflow
 
 ### Step 1 — Scan
 
-Run `scripts/scan_project.sh` from this skill's directory against the project root. It returns: top-level tree (depth 2), detected stack from manifests, last 10 commits, README/CLAUDE.md excerpts, folder file counts. Treat this as ground truth for TECHSTACK and FILEMAP — most of what the anchors need is already here. If the scan returns nothing (fresh repo, missing tools), fall back to manual Q&A; never abort on scan failure.
+Run `scripts/scan_project.sh` from this skill's directory against the project root. It returns: top-level tree (depth 2), detected stack from manifests, last 10 commits, README/CLAUDE.md excerpts, folder file counts. Treat this as ground truth for TECHSTACK and FILEMAP — most of what the organizator needs is already here. If the scan returns nothing (fresh repo, missing tools), fall back to manual Q&A; never abort on scan failure.
 
 ### Step 2 — Ask only the gaps
 
@@ -36,9 +36,9 @@ At most **four** questions, one at a time, and only for things the scan couldn't
 
 Asking less is better than asking thoroughly. If the scan answered everything, ask nothing.
 
-### Step 3 — Generate anchors
+### Step 3 — Generate organizator files
 
-Read templates from `assets/anchors/`. Replace `{{PLACEHOLDERS}}` with scan data and answers. Write all 8 files to the **project root** — not `.claude/`, not a subfolder. Anchors are living documents the user edits daily. Use **relative paths** (`./CONTEXT.md`) in cross-references.
+Read templates from `assets/organizator/`. Replace `{{PLACEHOLDERS}}` with scan data and answers. Write all 8 files to the **project root** — not `.claude/`, not a subfolder. Organizator files are living documents the user edits daily. Use **relative paths** (`./CONTEXT.md`) in cross-references.
 
 ### Step 4 — Offer hooks
 
@@ -49,7 +49,7 @@ Ask: "Install Claude Code hooks so STARTWORK.md auto-loads on every session star
 
 ### Step 5 — Hand off
 
-Print: files created, hooks status, next step ("Start a fresh session and say 'pracujemy nad projektem' or 'let's work on the project' — STARTWORK loads, Claude knows where to look"). Do not edit further in the same turn. Fresh session, clean context, anchor-driven is the whole point.
+Print: files created, hooks status, next step ("Start a fresh session and say 'pracujemy nad projektem' or 'let's work on the project' — STARTWORK loads, Claude knows where to look"). Do not edit further in the same turn. Fresh session, clean context, organizator-driven is the whole point.
 
 ## The 8 files
 
@@ -64,7 +64,7 @@ Print: files created, hooks status, next step ("Start a fresh session and say 'p
 | `DECISIONS.md` | Evaluating approaches | Decisions and **why**, append-only. Stops re-proposing rejected paths. |
 | `ENDWORK.md` | Session close ("kończymy" / "endwork") | Wrap-up checklist: update PROGRESS, log new DECISIONS, commit, push. |
 
-STARTWORK is the entry, ENDWORK is the exit, the middle six load on demand. Middle anchors stay under ~150 lines each. Past that they become noise — move overflow into `docs/` or a real spec.
+STARTWORK is the entry, ENDWORK is the exit, the middle six load on demand. Middle organizator files stay under ~150 lines each. Past that they become noise — move overflow into `docs/` or a real spec.
 
 ## Merge strategy (re-runs)
 
@@ -75,9 +75,9 @@ STARTWORK is the entry, ENDWORK is the exit, the middle six load on demand. Midd
 
 ## Principles (use when rules above don't cover an edge case)
 
-1. **Anchors are user property.** A non-empty anchor on re-run is assumed user-edited; protect it.
+1. **Organizator files are user property.** A non-empty organizator file on re-run is assumed user-edited; protect it.
 2. **User input beats scan.** If the user says "we're a Go shop" and scan found a stray `package.json`, believe the user.
 3. **TBD beats invented content.** Empty template fields get `TBD`, never a guessed framework. A `TBD` invites the user to fill it in; a hallucination misleads every future session.
-4. **Less context per session > more files.** Every anchor earns its place by saving a bigger reload. If an anchor stops doing that, it shrinks or merges.
+4. **Less context per session > more files.** Every organizator file earns its place by saving a bigger reload. If a file stops doing that, it shrinks or merges.
 
 For worked examples on three contrasting projects, see `references/examples.md`.

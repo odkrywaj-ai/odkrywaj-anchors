@@ -1,14 +1,18 @@
 #!/bin/bash
-# install.sh — fallback installer for odkrywaj-anchors (when /plugin is unavailable)
-# Recommended: use `/plugin marketplace add odkrywaj-ai/odkrywaj-anchors` inside Claude Code.
+# install.sh — fallback installer for odkrywaj-organizator (when /plugin is unavailable)
+# Recommended: use `/plugin marketplace add odkrywaj-ai/odkrywaj-organizator` inside Claude Code.
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/odkrywaj-ai/odkrywaj-anchors/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/odkrywaj-ai/odkrywaj-organizator/main/install.sh | bash
 
 set -euo pipefail
 
-REPO_URL="https://github.com/odkrywaj-ai/odkrywaj-anchors.git"
-SOURCE_DIR="$HOME/.claude/skills/.odkrywaj-anchors-source"
-SKILL_DIR="$HOME/.claude/skills/odkrywaj-anchors"
+REPO_URL="https://github.com/odkrywaj-ai/odkrywaj-organizator.git"
+SOURCE_DIR="$HOME/.claude/skills/.odkrywaj-organizator-source"
+SKILL_DIR="$HOME/.claude/skills/odkrywaj-organizator"
+LEGACY_DIRS=(
+  "$HOME/.claude/skills/odkrywaj-anchors"
+  "$HOME/.claude/skills/.odkrywaj-anchors-source"
+)
 
 # Sanity: never let SKILL_DIR collapse to a dangerous path (empty / root / $HOME).
 case "$SKILL_DIR" in
@@ -35,8 +39,8 @@ command -v git >/dev/null 2>&1 || die "git is required but not installed."
 command -v bash >/dev/null 2>&1 || die "bash is required but not installed."
 
 printf "\n"
-printf "%b\n" "${C_ORANGE}odkrywaj-anchors${C_RESET} ${C_DIM}· Claude Code skill installer${C_RESET}"
-printf "%b\n" "${C_DIM}https://github.com/odkrywaj-ai/odkrywaj-anchors${C_RESET}"
+printf "%b\n" "${C_ORANGE}odkrywaj-organizator${C_RESET} ${C_DIM}· Claude Code skill installer${C_RESET}"
+printf "%b\n" "${C_DIM}https://github.com/odkrywaj-ai/odkrywaj-organizator${C_RESET}"
 printf "\n"
 
 # --- Clone or update repo source ---
@@ -52,14 +56,16 @@ else
   git clone --depth 1 "$REPO_URL" "$SOURCE_DIR" || die "git clone failed (see error above)."
 fi
 
-# --- Migrate v0.1.0 layout (if user previously cloned the repo over $SKILL_DIR) ---
-if [ -d "$SKILL_DIR/.git" ]; then
-  say "Removing legacy v0.1.x layout at $SKILL_DIR (migrated to plugin layout)"
-  rm -rf -- "$SKILL_DIR"
-fi
+# --- Migrate legacy v0.2.x layouts (renamed from anchors -> organizator in v0.3.0) ---
+for legacy in "${LEGACY_DIRS[@]}"; do
+  if [ -e "$legacy" ]; then
+    say "Removing legacy v0.2.x layout at $legacy (renamed in v0.3.0)"
+    rm -rf -- "$legacy"
+  fi
+done
 
 # --- Mirror the skill directory ---
-PLUGIN_SKILL_DIR="$SOURCE_DIR/skills/odkrywaj-anchors"
+PLUGIN_SKILL_DIR="$SOURCE_DIR/skills/odkrywaj-organizator"
 [ -d "$PLUGIN_SKILL_DIR" ] || die "Source layout missing $PLUGIN_SKILL_DIR — install is broken."
 
 # Replace SKILL_DIR contents only after we have verified source. If users have
@@ -81,7 +87,7 @@ cp -R -- "$PLUGIN_SKILL_DIR" "$SKILL_DIR" || die "Failed to copy skill files."
 
 # --- Verify ---
 [ -f "$SKILL_DIR/SKILL.md" ] || die "SKILL.md missing after install — something went wrong."
-[ -d "$SKILL_DIR/assets/anchors" ] || die "assets/anchors missing — install is broken."
+[ -d "$SKILL_DIR/assets/organizator" ] || die "assets/organizator missing — install is broken."
 [ -d "$SKILL_DIR/scripts" ] || die "scripts missing — install is broken."
 
 ok "Installed at $SKILL_DIR"
@@ -92,10 +98,10 @@ command -v jq >/dev/null 2>&1 || MISSING="${MISSING}jq "
 command -v tree >/dev/null 2>&1 || MISSING="${MISSING}tree "
 
 printf "\n"
-ok "odkrywaj-anchors is ready."
+ok "odkrywaj-organizator is ready."
 printf "\n"
 printf "   %bNext:%b start a Claude Code session in any project and type:\n" "${C_DIM}" "${C_RESET}"
-printf "         ${C_ORANGE}Kotwica!${C_RESET}   (or: ${C_DIM}ustaw anchory${C_RESET}, ${C_DIM}Accio anchors${C_RESET})\n"
+printf "         ${C_ORANGE}Organizuj!${C_RESET}   (or: ${C_DIM}ustaw organizatora${C_RESET}, ${C_DIM}Accio organizator${C_RESET})\n"
 printf "\n"
 
 if [ -n "$MISSING" ]; then
@@ -105,6 +111,6 @@ if [ -n "$MISSING" ]; then
 fi
 
 printf "   %bTip:%b for one-command install/update, use the plugin route:\n" "${C_DIM}" "${C_RESET}"
-printf "         ${C_DIM}/plugin marketplace add odkrywaj-ai/odkrywaj-anchors${C_RESET}\n"
-printf "         ${C_DIM}/plugin install odkrywaj-anchors${C_RESET}\n"
+printf "         ${C_DIM}/plugin marketplace add odkrywaj-ai/odkrywaj-organizator${C_RESET}\n"
+printf "         ${C_DIM}/plugin install odkrywaj-organizator${C_RESET}\n"
 printf "\n"
